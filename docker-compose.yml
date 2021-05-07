@@ -1,0 +1,32 @@
+version: "3.0"
+
+services:
+      
+  postgresdb:
+    image: "postgres:13"
+    ports:
+      - 25432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - HOST=localhost
+      - SERVICE_NAME=postgres
+      
+  redis-master:
+    image: "redis:3"
+    command: redis-server --requirepass "test123"
+    ports:
+      - "26379:6379"
+      
+      
+  rabbitmq-service:
+    image: "rabbitmq:3.8.16"
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit
+      - RABBITMQ_DEFAULT_PASS=rabbit
+      - RABBITMQ_DEFAULT_VHOST=rabbit
+      - HOST=rabbitmq-service      

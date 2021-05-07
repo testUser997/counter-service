@@ -1,0 +1,57 @@
+server:
+  port: 0
+  address: localhost
+
+spring:
+  application:
+    name: counter-service
+  flyway:
+    enabled: true
+    locations: classpath:migration
+    default-schema: counter
+    schemas: counter
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+    show-sql: false
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:25432/postgres?currentSchema=counter&stringtype=unspecified
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+  rabbitmq:
+    addresses: amqp://rabbit:rabbit@rabbitmq-service:5672/rabbit
+
+  redis:
+    host: localhost
+    port: 26379
+    password: test123
+    database: 1
+    timeout: 500
+    max-attempts: 3
+
+github:
+  authorization: 'Basic Z2hwX01uN2NOd2dzNTdKcktyMnBoUllNTDA1RTkwYTZVbjE4RFdhYQ=='
+  url: 'https://api.github.com/users/'
+
+http:
+  connect-timeout: 30
+  read-timeout: 30
+
+queues:
+  config:
+    user:
+      name: 'user.queue.userCounter'
+      exchange: 'user.queue.userCounterExchange'
+      key: 'user.queue.userCounterKey'
